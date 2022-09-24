@@ -1,0 +1,41 @@
+<div style="margin: auto; width: 10%">
+  <p>My Store</p>
+  <a href="cart"> cartList </a>
+  <a href="confirmation"> Confirmation</a>
+</div>
+
+<div class="container-fluid center">
+  <div style="border: 1px solid #000">
+    <p>Cart Items</p>
+    <p>Total Items Price = ( {{ totalPrice }} )</p>
+    <div class="row">
+      <div
+        *ngFor="let productItemcart of selectedItems"
+        class="col-2 product-cont"
+      >
+        <img
+          src="{{ productItemcart.url }}"
+          style="width: 100px; height: 100px"
+        />
+        <div>
+          <p>Name :{{ productItemcart.name }}</p>
+        </div>
+
+        <p>Price :{{ productItemcart.price }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div *ngFor="let productItem of productList" class="col-3 product-cont">
+      <img src="{{ productItem.url }}" />
+      <div>
+        <p>Name :{{ productItem.name }}</p>
+      </div>
+
+      <p>Price :{{ productItem.price }}</p>
+      <button (click)="onClick(productItem)">Add to Cart</button>
+    </div>
+  </div>
+</div>
+<app-cart (xx)="reciever($event)"></app-cart>
