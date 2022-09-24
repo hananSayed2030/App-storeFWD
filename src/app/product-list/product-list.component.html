@@ -1,11 +1,10 @@
 <div style="margin: auto; width: 10%">
   <p>My Store</p>
-  <a href="cart"> cartList </a>
-  <a href="confirmation"> Confirmation</a>
-</div>
-
+  <a [routerLink]="['cart']">cart list </a>
+  <a [routerLink]="['confirmation']">confirmation </a>
+ </div>
 <div class="container-fluid center">
-  <div style="border: 1px solid #000">
+  <!-- <div style="border: 1px solid #000">
     <p>Cart Items</p>
     <p>Total Items Price = ( {{ totalPrice }} )</p>
     <div class="row">
@@ -24,7 +23,7 @@
         <p>Price :{{ productItemcart.price }}</p>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <div class="row">
     <div *ngFor="let productItem of productList" class="col-3 product-cont">
@@ -34,8 +33,11 @@
       </div>
 
       <p>Price :{{ productItem.price }}</p>
-      <button (click)="onClick(productItem)">Add to Cart</button>
+      <button (click)="onClick(productItem); (selectedItems)">
+        Add to Cart
+      </button>
     </div>
   </div>
 </div>
-<app-cart (xx)="reciever($event)"></app-cart>
+<!-- <app-cart (xx)="reciever($event)"></app-cart> -->
+<!-- <app-cart [selectedItems]="selectedItems" ></app-cart> -->

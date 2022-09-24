@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
+import { product } from './Models/product';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductDataService {
   productList: any;
-  public productSelected: any = [];
+  public productSelected: product[] = [];
   constructor() {
     this.getProductList;
   }
@@ -60,7 +61,7 @@ export class ProductDataService {
 
   addToCart(product: any) {
     this.productSelected.push(product);
-    console.log('selected item' + this.productSelected.length);
+    console.log('selected item' + this.productSelected[0].name);
 
     return this.productSelected;
   }

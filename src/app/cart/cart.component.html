@@ -1,8 +1,54 @@
 <p>Cart Item List</p>
+<div class="row">
+  <div class="col-4">
+    <ul>
+      <li *ngFor="let cartContent of selectedCartList">
+        <img src="{{ cartContent.url }}" style="width: 200px; height: 200px" />
+        <div>
+          <p>Name :{{ cartContent.name }}</p>
+        </div>
 
-<ul>
-  <li *ngFor="let cartContent of selectedCartList">
-    {{ selectedCartList[0].url }}
-  </li>
-</ul>
-
+        <p>Price :{{ cartContent.price }} Amount:{{ 1 }}</p>
+      </li>
+    </ul>
+    <h4>Total Price {{ totalPrice }}</h4>
+  </div>
+  <div class="col-4">
+    <form #form="ngForm" (ngSubmit)="submitForm()">
+      <div class="confirmation-container">
+        <p>Full Name :</p>
+        <input
+          class="form-control"
+          type="text"
+          name="Full  Name"
+          [(ngModel)]="fullName"
+        />
+      </div>
+      <div class="confirmation-container">
+        <p>Adress :</p>
+        <input
+          type="text"
+          class="form-control"
+          name="Adress"
+          [(ngModel)]="adress"
+        />
+      </div>
+      <div class="confirmation-container">
+        <p>Credit Card Number</p>
+        <input
+          class="form-control"
+          type="text"
+          name="Credit Card Number"
+          [(ngModel)]="creditCardNumber"
+          maxlength="16"
+        />
+      </div>
+      <br />
+      <p>we will never share your card details with any one</p>
+      <button type="submit" class="btn btn-primary">submit</button>
+      <a [routerLink]="['']" style="padding: 20px"
+        >Back to Store
+      </a>
+    </form>
+  </div>
+</div>

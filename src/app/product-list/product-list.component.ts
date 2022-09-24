@@ -5,6 +5,7 @@ import { Component, OnInit, Input, Output } from '@angular/core';
 //import servcie for use functons (get store data , add item to card )
 import { ProductDataService } from '../product-data.service';
 import { CartComponent } from '../cart/cart.component';
+import { product } from '../Models/product';
 
 @Component({
   selector: 'app-product-list',
@@ -12,8 +13,8 @@ import { CartComponent } from '../cart/cart.component';
   styleUrls: ['./product-list.component.css'],
 })
 export class ProductListComponent implements OnInit {
-  productList: any = [];
-  selectedItems: any[] = [];
+  productList: product[] = [];
+  selectedItems: product[] = [];
   // hanan:String="HIIIIIIIIII" ;
   totalPrice: number = 0.0;
   //  @Input() selectedCartList!:  CartComponent ;
@@ -25,20 +26,20 @@ export class ProductListComponent implements OnInit {
     this.productList = this.ProductDataService.getProductList();
     // console.log('Hanan ', this.productList.length);
   }
-  onClick(selectedItem: any) {
+  onClick(selectedItem: product) {
     //Call Add to cart function when click on button Add to cart
     alert('Added Product  ' + selectedItem.name + ' Your Cart ');
     //fill selected items in array
     // this.selectedCartList = this.ProductDataService.addToCart(selectedItem);
     this.selectedItems = this.ProductDataService.addToCart(selectedItem);
 
+
     // this.selectedCartList =  this.selectedItems  ;
     //Sum prices each time select new item for add
     this.totalPrice += selectedItem.price;
     //check that list fill each time add to cart
     console.log(
-      'final >>>' + this.selectedItems[this.selectedItems.length].name
-    );
+      'final >>>' + this.selectedItems)
   }
   reciever(event: [any]) {
     console.log('pass to Child ' + event.length);
