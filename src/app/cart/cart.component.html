@@ -3,12 +3,17 @@
   <div class="col-4">
     <ul>
       <li *ngFor="let cartContent of selectedCartList">
-        <img src="{{ cartContent.url }}" style="width: 200px; height: 200px" />
+        <img  src="{{ cartContent.url }}" style="width: 200px; height: 200px"  />
         <div>
+          
           <p>Name :{{ cartContent.name }}</p>
         </div>
 
         <p>Price :{{ cartContent.price }} Amount:{{ 1 }}</p>
+        <!-- onRemove -->
+        <img style="width:20px ; height:20px" src="../assets/images/delete.jpeg" (click)="onRemove(cartContent)"><img>
+          <!-- Remove from Cart</img> -->
+      
       </li>
     </ul>
     <h4>Total Price {{ totalPrice }}</h4>
@@ -18,10 +23,12 @@
       <div class="confirmation-container">
         <p>Full Name :</p>
         <input
+          required
           class="form-control"
           type="text"
           name="Full  Name"
           [(ngModel)]="fullName"
+          
         />
       </div>
       <div class="confirmation-container">
@@ -31,6 +38,8 @@
           class="form-control"
           name="Adress"
           [(ngModel)]="adress"
+        
+          required
         />
       </div>
       <div class="confirmation-container">
@@ -41,14 +50,20 @@
           name="Credit Card Number"
           [(ngModel)]="creditCardNumber"
           maxlength="16"
+          required
         />
       </div>
       <br />
       <p>we will never share your card details with any one</p>
-      <button type="submit" class="btn btn-primary">submit</button>
-      <a [routerLink]="['']" style="padding: 20px"
-        >Back to Store
-      </a>
+
+      <button
+        type="submit"
+        [disabled]="form.invalid"
+        class="btn btn-primary"
+      >
+        submit
+      </button>
+      <a [routerLink]="['']" style="padding: 20px">Back to Store </a>
     </form>
   </div>
 </div>

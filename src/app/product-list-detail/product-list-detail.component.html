@@ -1,1 +1,22 @@
-<p>product-list-detail works!</p>
+<p>Item Details</p>
+<div class="row">
+  <div class="col-4">
+    <ul>
+      <li *ngFor="let productDetail of selectedItemDetails">
+        <img
+          src="{{ productDetail.url }}"
+          style="width: 200px; height: 200px"
+        />
+        <div>
+          <p>Name :{{ productDetail.name }}</p>
+        </div>
+        <p>Price :{{ productDetail.price }}</p>
+        <button  class="btn btn-primary" (click)="onClick(productDetail); (selectedItem)">
+          Add to Cart
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <a [routerLink]="['']" style="padding: 20px">Back to Store </a>
+</div>

@@ -1,8 +1,8 @@
 import { outputAst } from '@angular/compiler';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input } from '@angular/core';
 import { product } from '../Models/product';
 import { ProductDataService } from '../product-data.service';
-import { ProductListComponent } from '../product-list/product-list.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -11,36 +11,58 @@ import { ProductListComponent } from '../product-list/product-list.component';
 })
 export class CartComponent implements OnInit {
   @Input() selectedItems!: product[];
-  @Output() xx = new EventEmitter();
   selectedCartList: any[] = [];
-  totalPrice:number=0;
+  totalPrice: number = 0;
   fullName: String = '';
   adress: String = '';
   creditCardNumber: String = '';
   //in case use service call
-  constructor(private serviceId: ProductDataService) {}
+  constructor(private serviceId: ProductDataService, private router: Router) {}
   // constructor() {}
 
   ngOnInit(): void {
-    //output
-    // this.xx.emit(this.selectedCartList);
-    // console.log('input>>read>>>' + this.selectedItems.hanan);
     //service
     this.selectedItems;
     this.selectedCartList = this.serviceId.displayProductDetails();
+    this.calculateTotalPrice();
+  }
+  calculateTotalPrice() {
+    this.totalPrice = 0;
     for (let i = 0; i < this.selectedCartList.length; i++) {
-    this.totalPrice+=  this.selectedCartList[i].price;
+      this.totalPrice += Math.round(this.selectedCartList[i].price);
     }
-      //from input
-      //this.selectedCartList = this.productInts.selectedItems ;
+  }
 
-    //  console.log('selected item no' + this.selectedItems.selectedItems[0].name);
-    // console.log('service ' + this.selectedCartList.length);
-  }
-  onSubmit() {
-    window.alert('Thank You ${this.fullName} For Using our shopping Site ');
-  }
   submitForm() {
-    window.alert('Thank You ${this.fullName} For Using our shopping Site ');
+    fullName: this.fullName;
+    totalPrice: this.totalPrice;
+
+    this.serviceId.setConfirmationData(this.fullName, this.totalPrice);
+
+    this.fullName = '';
+    this.adress = '';
+    this.creditCardNumber = '';
+    this.redirect();
+  }
+  onRemove(selectedItem: product) {
+    alert('selected item ' + selectedItem.name + '  will be removed');
+    this.serviceId.removeSelectedItem(selectedItem);
+    this.calculateTotalPrice();
+    this.ngOnInit();
+  }
+
+  redirect() {
+    if (this.totalPrice == 0) {
+      alert('No Items Selected !!!');
+      return;
+    }
+
+    window.alert(
+      'Thank You Hanan  For Using our shopping Site ' +
+        this.fullName +
+        this.adress +
+        this.creditCardNumber
+    );
+    this.router.navigateByUrl('confirmation');
   }
 }

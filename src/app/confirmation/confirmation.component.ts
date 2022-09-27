@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductDataService } from '../product-data.service';
 
 @Component({
   selector: 'app-confirmation',
@@ -7,13 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConfirmationComponent implements OnInit {
   fullName: String = '';
-  adress: String = '';
-  creditCardNumber: String = '';
-  constructor() {}
+  finalPrice: number = 0;
+  
+  constructor(private ProductDataService: ProductDataService) {}
 
-  ngOnInit(): void {}
-  onSubmit() {
-    alert('Thank You ${this.fullName} For Using our shopping Site ');
+  ngOnInit(): void {
+   this.fullName= this.ProductDataService.getFullName();
+   this.finalPrice=  this.ProductDataService.getTotalPrice();
   }
-  submitForm() {}
+  onSubmit() {
+    alert(
+      'Thank You  For Using our shopping Site ' 
+       
+    );
+  }
+ 
+  
 }
